@@ -13,6 +13,8 @@
     "vite": "^7.0.3"
   },
   "dependencies": {
+    "@types/matter-js": "^0.19.8",
+    "matter-js": "^0.20.0",
     "pixi.js": "^8.11.0"
   }
 }
