@@ -7,9 +7,9 @@ const input = Input.instance;
 
 export default class Player extends Entity{
 
-    speed: number = 5;
+    speed: number = 6;
     airSpeed: number = 0.05;
-    jumpForce: number = 0.25;
+    jumpForce: number = 0.35;
 
     constructor(x?: number, y?: number) {
         const sprite = new Sprite(Assets.cache.get('public/character.png'));
@@ -17,7 +17,16 @@ export default class Player extends Entity{
         sprite.scale.set(0.3)
         super(
             sprite,
-            Bodies.rectangle(x || 0, y || 0, 75, 75, { isStatic: false })
+            Bodies.rectangle(x || 0, y || 0, 75, 75, {
+                isStatic: false,
+                label: 'player',
+                /*
+                collisionFilter: {
+                    category: CATEGORY_PLAYER,
+                    mask: CATEGORY_BLOCK
+                }
+                */
+            })
         );
 
         // Disable rotation

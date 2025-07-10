@@ -11,3 +11,6 @@ export function isMobile(): boolean {
 }
 
 export const BACKGROUND_COLOR: number = 0xAFAFAF;
+
+export const CATEGORY_PLAYER: number = 0x0001;
+export const CATEGORY_BLOCK: number = 0x0002;

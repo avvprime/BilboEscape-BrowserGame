@@ -11,7 +11,7 @@ export default abstract class UIEntity{
         RendererManager.instance.canvas.addChild(this.displayObject);
     }
 
-    public update(delta: number): void {}
+    public update(_delta: number): void {}
 
     public get position(): any {
         return { x: this.displayObject.position.x, y: this.displayObject.position.y };

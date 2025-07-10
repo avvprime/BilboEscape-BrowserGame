@@ -16,7 +16,7 @@ export default class Block extends Entity {
                 anchor: 0.5,
                 tint: 0x000000
             }),
-            Bodies.rectangle(x, y, width, height, { isStatic: true })
+            Bodies.rectangle(x, y, width, height, { isStatic: true, label: 'block' })
         );
     }
 }

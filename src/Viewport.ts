@@ -8,9 +8,13 @@ export default class Viewport extends Container {
 
     smoothing: number = 0.1; // duration time for lerp
 
+    baseWidth: number = 1128;
+    baseHeight: number = 615;
 
-    constructor() {
+    constructor(logicalWidth: number, logicalHeight: number) {
         super();
+        this.baseWidth = logicalWidth;
+        this.baseHeight = logicalHeight;
     }
 
     public update(): void {
@@ -39,4 +43,17 @@ export default class Viewport extends Container {
         );
     }
 
+    public resize(width: number, height: number): void {
+        const scaleX = width / this.baseWidth;
+        const scaleY = height / this.baseHeight;
+
+        const scale = Math.min(scaleX, scaleY); // Uniform scaling
+
+        this.scale.set(scale);
+
+        this.position.set(
+            ( width - this.baseWidth * scale ) / 2,
+            (height - this.baseHeight * scale ) / 2
+        )
+    }
 }

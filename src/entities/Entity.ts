@@ -15,11 +15,11 @@ export default abstract class Entity {
         if (this.body) PhysicsManager.instance.add(this.body);
     }
 
-    public update(delta: number): void {
+    public update(_delta: number): void {
         
     }
 
-    public fixedUpdate(delta: number): void {
+    public fixedUpdate(_delta: number): void {
         if (this.body) {
             this.displayObject.position.set(this.body.position.x, this.body.position.y);
             this.displayObject.rotation = this.body.angle;

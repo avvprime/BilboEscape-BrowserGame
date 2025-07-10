@@ -9,11 +9,10 @@ export default class Game {
     private static _instance: Game;
 
     private gameStateManager: GameStateManager;
-    private keyboardInputSystem: KeyboardInputSystem;
 
     private constructor() {
         this.gameStateManager = new GameStateManager();
-        this.keyboardInputSystem = new KeyboardInputSystem(Input.instance);
+        new KeyboardInputSystem(Input.instance);
     }
 
     public static get instance(): Game {

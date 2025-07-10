@@ -3,7 +3,8 @@ import {
     Body,
     Composite,
     Constraint,
-    MouseConstraint
+    MouseConstraint,
+    Events
 } from 'matter-js';
 import Clock from './Clock';
 
@@ -15,10 +16,12 @@ export default class PhysicsManager {
 
     private engine: Engine;
 
+    
+
     private constructor() {
         this.engine = Engine.create({
-            gravity: { scale: 0.002 }
-        })
+            gravity: { scale: 0.004 }
+        });
     }
 
     public static get instance(): PhysicsManager {
@@ -30,6 +33,16 @@ export default class PhysicsManager {
     }
 
     public setup(): void {
+
+        Events.on(this.engine, 'collisionStart', () => {
+
+        });
+
+        Events.on(this.engine, 'collisionEnd', () => {
+
+        });
+
+
         Clock.instance.addFixedUpdateCallback(this.update.bind(this));
     }
 

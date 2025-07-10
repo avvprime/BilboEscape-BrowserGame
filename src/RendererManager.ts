@@ -1,30 +1,24 @@
-import { autoDetectRenderer, Container, type Renderer } from "pixi.js";
+import { Assets, autoDetectRenderer, Container, type Renderer } from "pixi.js";
 import Clock from "./Clock";
 import Viewport from "./Viewport";
+import Background from "./entities/Background";
 
 
 export default class RendererManager {
 
-    public viewport: Viewport = new Viewport();
+    public viewport!: Viewport;
     public canvas: Container = new Container();
     
     private static _instance: RendererManager;
     private renderer!: Renderer;
     private stage: Container = new Container();
 
-    private constructor() {
-        // For in world entities
-        this.stage.addChild(this.viewport);
+    private logicalWidth: number = 1128;
+    private logicalHeight: number = 615;
 
-        // For ui entities
-        this.stage.addChild(this.canvas);
+    private background!: Background;
 
-        window.addEventListener('resize', () => {
-            this.renderer.resize(window.innerWidth, window.innerHeight);
-
-            // Don't forget to update canvas world object positions bc you know they have relative positions
-        });
-    }
+    private constructor() {}
 
     private render(): void {
         /*
@@ -55,10 +49,33 @@ export default class RendererManager {
     }
 
     public async setup(): Promise<void> {
+
+        // Background
+        this.background = new Background(Assets.cache.get('public/bg-image.png'));
+        this.stage.addChild(this.background);
+
+        // For in world entities
+        this.viewport = new Viewport(this.logicalWidth, this.logicalHeight);
+        this.stage.addChild(this.viewport);
+
+        // For ui entities
+        this.stage.addChild(this.canvas);
+
+        this.viewport.resize(window.innerWidth, window.innerHeight);
+
         this.renderer = await autoDetectRenderer({ preference: 'webgpu' });
+
         this.renderer.resize(window.innerWidth, window.innerHeight);
+
         document.getElementById('canvas-container')?.appendChild(this.renderer.canvas);
+
         Clock.instance.addRenderCallback(this.render.bind(this));
+
+        window.addEventListener('resize', () => {
+            this.renderer.resize(window.innerWidth, window.innerHeight);
+            this.viewport.resize(window.innerWidth, window.innerHeight);
+            // Don't forget to update canvas world object positions bc you know they have relative positions
+        });
     }
 
 }
